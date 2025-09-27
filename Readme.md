@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="ReadmeImages/Icon.png" alt="AppIcon" width="300"/>
+  <img src="ReadmeImages/Icon.png" alt="AppIcon" style="width: min(50vw, 300px); height: auto;"/>
 </div>
 
 # FuelCalc
@@ -8,10 +8,10 @@
 
 Додаток розроблений у рамках практичної роботи з дисципліни, має три вкладки:
 
-<div style="display: flex; flex-direction: row; justify-content: center; gap: 12px;">
-  <img src="ReadmeImages/AppExample_1.png" alt="AppIcon" width="250"/>
-  <img src="ReadmeImages/AppExample_2.png" alt="AppIcon" width="250"/>
-  <img src="ReadmeImages/AppExample_3.png" alt="AppIcon" width="250"/>
+<div style="display: flex; flex-direction: row; justify-content: center; gap: 12px; flex-wrap: nowrap; overflow-x: auto;">
+  <img src="ReadmeImages/AppExample_1.png" alt="AppIcon" style="width: min(30vw, 250px); height: auto;"/>
+  <img src="ReadmeImages/AppExample_2.png" alt="AppIcon" style="width: min(30vw, 250px); height: auto;"/>
+  <img src="ReadmeImages/AppExample_3.png" alt="AppIcon" style="width: min(30vw, 250px); height: auto;"/>
 </div>
 
 ## 🔬 Теоретичні основи
@@ -60,10 +60,12 @@ Q = 339·C + 1030·H − 108.8·(O − S) − 25·W [кДж/кг]
   - склад сухої та горючої маси (таблиці)
   - теплоти `Qr`, `Qd`, `Qdaf`
 
-<div align="center">
-  <p>Контрольний приклад</p>
-  <img src="ReadmeImages/RawMass_Input.png" alt="AppIcon" width="300"/>
-  <img src="ReadmeImages/RawMass_Results.png" alt="AppIcon" width="300"/>
+### Контрольний приклад
+
+<div style="display: flex; justify-content: center; gap: 16px; flex-wrap: nowrap; overflow-x: auto;">
+  
+  <img src="ReadmeImages/RawMass_Input.png" alt="AppIcon" style="width: min(40vw, 300px); height: auto;"/>
+  <img src="ReadmeImages/RawMass_Results.png" alt="AppIcon" style="width: min(40vw, 300px); height: auto;"/>
 </div>
 
 ## 🛢 Мазут
@@ -76,10 +78,11 @@ Q = 339·C + 1030·H − 108.8·(O − S) − 25·W [кДж/кг]
   - теплота згоряння `Qr`
   - порівняння обчисленого та введеного `Qdaf`
 
-<div align="center">
-  <p>Контрольний приклад</p>
-  <img src="ReadmeImages/Oil_Input.png" alt="AppIcon" width="300"/>
-  <img src="ReadmeImages/Oil_Results.png" alt="AppIcon" width="300"/>
+### Контрольний приклад
+
+<div style="display: flex; justify-content: center; gap: 16px; flex-wrap: nowrap; overflow-x: auto;">
+  <img src="ReadmeImages/Oil_Input.png" alt="AppIcon" style="width: min(40vw, 300px); height: auto;"/>
+  <img src="ReadmeImages/Oil_Results.png" alt="AppIcon" style="width: min(40vw, 300px); height: auto;"/>
 </div>
 
 ## 📖 Довідка
@@ -91,10 +94,11 @@ Q = 339·C + 1030·H − 108.8·(O − S) − 25·W [кДж/кг]
 - алгоритм розрахунків для обох завдань
 - правила валідації даних у додатку
 
-<div align="center">
-  <p>Результати отримані у відповідності до варіанту 8</p>
-  <img src="ReadmeImages/RawMass_Input_Test.png" alt="AppIcon" width="300"/>
-  <img src="ReadmeImages/RawMass_Results_Test.png" alt="AppIcon" width="300"/>
+### Результати отримані у відповідності до варіанту 8
+
+<div style="display: flex; justify-content: center; gap: 16px; flex-wrap: nowrap; overflow-x: auto;">
+  <img src="ReadmeImages/RawMass_Input_Test.png" alt="AppIcon" style="width: min(40vw, 300px); height: auto;"/>
+  <img src="ReadmeImages/RawMass_Results_Test.png" alt="AppIcon" style="width: min(40vw, 300px); height: auto;"/>
 </div>
 
 ## 🛠 Використані технології
