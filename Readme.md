@@ -1,18 +1,17 @@
 <div align="center">
   <img src="ReadmeImages/Icon.png" alt="AppIcon" width="300"/>
-  <p style="font-size:40px; font-weight:bold;">
-  FuelCalc
-  </p>
 </div>
 
-**FuelCalc** — мобільний калькулятор для iOS, який допомагає виконувати перерахунки складу палива та визначати нижчу теплоту згоряння для різних баз: робочої, сухої та горючої.
+# FuelCalc
+
+— мобільний калькулятор для iOS, який допомагає виконувати перерахунки складу палива та визначати нижчу теплоту згоряння для різних баз: робочої, сухої та горючої.
 
 Додаток розроблений у рамках практичної роботи з дисципліни, має три вкладки:
 
 <div style="display: flex; flex-direction: row; justify-content: center; gap: 12px;">
-  <img src="ReadmeImages/AppExample_1.png" alt="AppIcon" width="300"/>
-  <img src="ReadmeImages/AppExample_2.png" alt="AppIcon" width="300"/>
-  <img src="ReadmeImages/AppExample_3.png" alt="AppIcon" width="300"/>
+  <img src="ReadmeImages/AppExample_1.png" alt="AppIcon" width="250"/>
+  <img src="ReadmeImages/AppExample_2.png" alt="AppIcon" width="250"/>
+  <img src="ReadmeImages/AppExample_3.png" alt="AppIcon" width="250"/>
 </div>
 
 ## 🔬 Теоретичні основи
@@ -62,9 +61,9 @@ Q = 339·C + 1030·H − 108.8·(O − S) − 25·W [кДж/кг]
   - теплоти `Qr`, `Qd`, `Qdaf`
 
 <div align="center">
-  <p style="font-size:25px; font-weight:bold;">Контрольний приклад</p>
-  <img src="ReadmeImages/RawMass_Input.png" alt="AppIcon" width="350"/>
-  <img src="ReadmeImages/RawMass_Results.png" alt="AppIcon" width="350"/>
+  <p>Контрольний приклад</p>
+  <img src="ReadmeImages/RawMass_Input.png" alt="AppIcon" width="300"/>
+  <img src="ReadmeImages/RawMass_Results.png" alt="AppIcon" width="300"/>
 </div>
 
 ## 🛢 Мазут
@@ -78,9 +77,9 @@ Q = 339·C + 1030·H − 108.8·(O − S) − 25·W [кДж/кг]
   - порівняння обчисленого та введеного `Qdaf`
 
 <div align="center">
-  <p style="font-size:25px; font-weight:bold;">Контрольний приклад</p>
-  <img src="ReadmeImages/Oil_Input.png" alt="AppIcon" width="350"/>
-  <img src="ReadmeImages/Oil_Results.png" alt="AppIcon" width="350"/>
+  <p>Контрольний приклад</p>
+  <img src="ReadmeImages/Oil_Input.png" alt="AppIcon" width="300"/>
+  <img src="ReadmeImages/Oil_Results.png" alt="AppIcon" width="300"/>
 </div>
 
 ## 📖 Довідка
@@ -93,9 +92,9 @@ Q = 339·C + 1030·H − 108.8·(O − S) − 25·W [кДж/кг]
 - правила валідації даних у додатку
 
 <div align="center">
-  <p style="font-size:25px; font-weight:bold;">Результати отримані у відповідності до варіанту 8</p>
-  <img src="ReadmeImages/RawMass_Input_Test.png" alt="AppIcon" width="350"/>
-  <img src="ReadmeImages/RawMass_Results_Test.png" alt="AppIcon" width="350"/>
+  <p>Результати отримані у відповідності до варіанту 8</p>
+  <img src="ReadmeImages/RawMass_Input_Test.png" alt="AppIcon" width="300"/>
+  <img src="ReadmeImages/RawMass_Results_Test.png" alt="AppIcon" width="300"/>
 </div>
 
 ## 🛠 Використані технології
