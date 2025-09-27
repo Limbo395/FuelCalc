@@ -57,13 +57,14 @@ struct RawMassView: View {
     private var fieldsValid: Bool { hValid && cValid && sValid && nValid && oValid && wValid && aValid }
 
     private var rawSum: Double {
-        (toDouble(h) ?? .nan) +
-        (toDouble(c) ?? .nan) +
-        (toDouble(s) ?? .nan) +
-        (toDouble(n) ?? .nan) +
-        (toDouble(o) ?? .nan) +
-        (toDouble(w) ?? .nan) +
-        (toDouble(a) ?? .nan)
+        let hV = toDouble(h) ?? Double.nan
+        let cV = toDouble(c) ?? Double.nan
+        let sV = toDouble(s) ?? Double.nan
+        let nV = toDouble(n) ?? Double.nan
+        let oV = toDouble(o) ?? Double.nan
+        let wV = toDouble(w) ?? Double.nan
+        let aV = toDouble(a) ?? Double.nan
+        return hV + cV + sV + nV + oV + wV + aV
     }
     private var rawSumValid: Bool {
         guard rawSum.isFinite else { return false }
@@ -178,7 +179,6 @@ struct RawMassView: View {
                     }
                 }
             }
-            .scrollDisabled(true)
             .onChange(of: focusedField) { newFocus in
                 if let last = lastFocused { editedFields.insert(last) }
                 lastFocused = newFocus
@@ -191,12 +191,14 @@ struct RawMassView: View {
             .sheet(isPresented: $showSheet) {
                 if let r = rawResults {
                     ResultSheet(content: .raw(r))
-                        .presentationDetents([.large])              // одразу на весь екран
+                        .presentationDetents([.large])
+                        .presentationContentInteraction(.scrolls)   // ← додай це
                         .presentationDragIndicator(.visible)
                         .presentationBackground(.ultraThinMaterial)
                 } else {
                     Text("Немає даних").padding()
                         .presentationDetents([.large])
+                        .presentationContentInteraction(.scrolls)   // ← і тут
                         .presentationBackground(.ultraThinMaterial)
                 }
             }

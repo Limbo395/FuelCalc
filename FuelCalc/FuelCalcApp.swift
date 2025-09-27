@@ -11,7 +11,7 @@ import SwiftUI
 struct FuelCalcApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RootTabs()
         }
     }
 }

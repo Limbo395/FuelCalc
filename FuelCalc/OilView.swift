@@ -19,32 +19,61 @@ struct OilView: View {
 
     @State private var showSheet = false
     @State private var oilResults: OilResults?
-
-    // Валідація
-    @State private var cgValid = true, hgValid = true, ogValid = true, sgValid = true
-    @State private var qdafValid = true, wrValid = true, adValid = true, vValid = true
     @State private var showInvalidAlert = false
+    @State private var alertMessage = "Данні введено некоректно"
 
     private enum Field: Hashable { case cg, hg, og, sg, qdaf, wr, ad, v }
     @FocusState private var focusedField: Field?
+    @State private var editedFields = Set<Field>()
+    @State private var lastFocused: Field?
 
     // MARK: - Helpers
-    private func isNumeric(_ text: String) -> Bool {
-        let t = text.trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: ",", with: ".")
-        return t.isEmpty || Double(t) != nil
-    }
-    private func parsedOptionalDouble(_ text: String) -> Double? {
-        let t = text.trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: ",", with: ".")
+    private func toDouble(_ s: String) -> Double? {
+        let t = s.trimmingCharacters(in: .whitespacesAndNewlines)
+            .replacingOccurrences(of: ",", with: ".")
         return Double(t)
     }
-    private func parsedDouble(_ text: String) -> Double {
-        parsedOptionalDouble(text) ?? 0
+    private func isNumber(_ s: String) -> Bool {
+        guard !s.isEmpty else { return false }
+        return toDouble(s) != nil
     }
-    private var allValid: Bool {
-        cgValid && hgValid && ogValid && sgValid && qdafValid && wrValid && adValid && vValid &&
-        !cg.isEmpty && !hg.isEmpty && !og.isEmpty && !sg.isEmpty && !wr.isEmpty && !ad.isEmpty
-        // qdaf та v можемо вважати опційними; якщо хочеш зробити обов'язковими — додай !qdaf.isEmpty && !v.isEmpty
+    private func inPercentRange(_ s: String) -> Bool {
+        guard let x = toDouble(s) else { return false }
+        return x >= 0 && x <= 100
     }
+    private func nonNegative(_ s: String) -> Bool {
+        guard let x = toDouble(s) else { return false }
+        return x >= 0
+    }
+    private func color(for field: Field, isValid: Bool) -> Color {
+        editedFields.contains(field) && !isValid ? .red : .primary
+    }
+
+    // MARK: - Per-field validity
+    private var cgValid: Bool { isNumber(cg) && inPercentRange(cg) }
+    private var hgValid: Bool { isNumber(hg) && inPercentRange(hg) }
+    private var ogValid: Bool { isNumber(og) && inPercentRange(og) }
+    private var sgValid: Bool { isNumber(sg) && inPercentRange(sg) }
+    private var qdValid: Bool { isNumber(qdaf) && nonNegative(qdaf) }  // МДж/кг ≥ 0
+    private var wrValid: Bool { isNumber(wr) && inPercentRange(wr) }
+    private var adValid: Bool { isNumber(ad) && inPercentRange(ad) }
+    private var vValid:  Bool { isNumber(v)  && nonNegative(v) }       // мг/кг ≥ 0
+
+    private let sumTolerance: Double = 0.5
+    private var fieldsValid: Bool { cgValid && hgValid && ogValid && sgValid && qdValid && wrValid && adValid && vValid }
+
+    // daf сума має бути 100±tol
+    private var dafSum: Double {
+        (toDouble(cg) ?? .nan) +
+        (toDouble(hg) ?? .nan) +
+        (toDouble(og) ?? .nan) +
+        (toDouble(sg) ?? .nan)
+    }
+    private var dafSumValid: Bool {
+        guard dafSum.isFinite else { return false }
+        return abs(dafSum - 100.0) <= sumTolerance
+    }
+    private var allValid: Bool { fieldsValid && dafSumValid }
 
     var body: some View {
         NavigationStack {
@@ -56,34 +85,30 @@ struct OilView: View {
                     TextField("Cg", text: $cg)
                         .keyboardType(.numbersAndPunctuation)
                         .submitLabel(.done)
-                        .onSubmit { focusedField = nil }
+                        .onSubmit { editedFields.insert(.cg); focusedField = nil }
                         .focused($focusedField, equals: .cg)
-                        .onChange(of: cg) { cgValid = isNumeric($0) }
-                        .foregroundColor(cgValid ? .primary : .red)
+                        .foregroundColor(color(for: .cg, isValid: cgValid))
 
                     TextField("Hg", text: $hg)
                         .keyboardType(.numbersAndPunctuation)
                         .submitLabel(.done)
-                        .onSubmit { focusedField = nil }
+                        .onSubmit { editedFields.insert(.hg); focusedField = nil }
                         .focused($focusedField, equals: .hg)
-                        .onChange(of: hg) { hgValid = isNumeric($0) }
-                        .foregroundColor(hgValid ? .primary : .red)
+                        .foregroundColor(color(for: .hg, isValid: hgValid))
 
                     TextField("Og", text: $og)
                         .keyboardType(.numbersAndPunctuation)
                         .submitLabel(.done)
-                        .onSubmit { focusedField = nil }
+                        .onSubmit { editedFields.insert(.og); focusedField = nil }
                         .focused($focusedField, equals: .og)
-                        .onChange(of: og) { ogValid = isNumeric($0) }
-                        .foregroundColor(ogValid ? .primary : .red)
+                        .foregroundColor(color(for: .og, isValid: ogValid))
 
                     TextField("Sg", text: $sg)
                         .keyboardType(.numbersAndPunctuation)
                         .submitLabel(.done)
-                        .onSubmit { focusedField = nil }
+                        .onSubmit { editedFields.insert(.sg); focusedField = nil }
                         .focused($focusedField, equals: .sg)
-                        .onChange(of: sg) { sgValid = isNumeric($0) }
-                        .foregroundColor(sgValid ? .primary : .red)
+                        .foregroundColor(color(for: .sg, isValid: sgValid))
                 }
 
                 Section {
@@ -93,56 +118,63 @@ struct OilView: View {
                     TextField("Qdaf (МДж/кг)", text: $qdaf)
                         .keyboardType(.numbersAndPunctuation)
                         .submitLabel(.done)
-                        .onSubmit { focusedField = nil }
+                        .onSubmit { editedFields.insert(.qdaf); focusedField = nil }
                         .focused($focusedField, equals: .qdaf)
-                        .onChange(of: qdaf) { qdafValid = isNumeric($0) }
-                        .foregroundColor(qdafValid ? .primary : .red)
+                        .foregroundColor(color(for: .qdaf, isValid: qdValid))
 
                     TextField("Wr (волога, %)", text: $wr)
                         .keyboardType(.numbersAndPunctuation)
                         .submitLabel(.done)
-                        .onSubmit { focusedField = nil }
+                        .onSubmit { editedFields.insert(.wr); focusedField = nil }
                         .focused($focusedField, equals: .wr)
-                        .onChange(of: wr) { wrValid = isNumeric($0) }
-                        .foregroundColor(wrValid ? .primary : .red)
+                        .foregroundColor(color(for: .wr, isValid: wrValid))
 
                     TextField("Ad (зола, %)", text: $ad)
                         .keyboardType(.numbersAndPunctuation)
                         .submitLabel(.done)
-                        .onSubmit { focusedField = nil }
+                        .onSubmit { editedFields.insert(.ad); focusedField = nil }
                         .focused($focusedField, equals: .ad)
-                        .onChange(of: ad) { adValid = isNumeric($0) }
-                        .foregroundColor(adValid ? .primary : .red)
+                        .foregroundColor(color(for: .ad, isValid: adValid))
 
                     TextField("V (мг/кг)", text: $v)
                         .keyboardType(.numbersAndPunctuation)
                         .submitLabel(.done)
-                        .onSubmit { focusedField = nil }
+                        .onSubmit { editedFields.insert(.v); focusedField = nil }
                         .focused($focusedField, equals: .v)
-                        .onChange(of: v) { vValid = isNumeric($0) }
-                        .foregroundColor(vValid ? .primary : .red)
+                        .foregroundColor(color(for: .v, isValid: vValid))
                 }
 
                 HStack {
                     Spacer()
                     Button {
-                        if !allValid {
+                        focusedField = nil
+
+                        guard fieldsValid else {
+                            alertMessage = "Поля % мають бути 0…100. Qdaf та V — числа ≥ 0."
                             showInvalidAlert = true
                             return
                         }
-                        focusedField = nil
-                        let input = OilInput(
-                            Cg: parsedDouble(cg), Hg: parsedDouble(hg), Og: parsedDouble(og), Sg: parsedDouble(sg),
-                            QdafProvided: parsedOptionalDouble(qdaf),
-                            Wr: parsedDouble(wr), Ad: parsedDouble(ad),
-                            VmgPerKg: parsedOptionalDouble(v)
-                        )
+                        guard dafSumValid else {
+                            alertMessage = String(format: "Сума Cg+Hg+Og+Sg повинна бути 100±%.1f. Зараз: %.3f", sumTolerance, dafSum)
+                            showInvalidAlert = true
+                            return
+                        }
+
                         do {
+                            let input = OilInput(
+                                Cg: toDouble(cg) ?? 0, Hg: toDouble(hg) ?? 0,
+                                Og: toDouble(og) ?? 0, Sg: toDouble(sg) ?? 0,
+                                QdafProvided: toDouble(qdaf),
+                                Wr: toDouble(wr) ?? 0, Ad: toDouble(ad) ?? 0,
+                                VmgPerKg: toDouble(v)
+                            )
                             oilResults = try Calculator.computeOil(input: input)
                             showSheet = true
                         } catch {
+                            alertMessage = "Помилка розрахунку."
                             showInvalidAlert = true
                         }
+
                     } label: {
                         HStack {
                             Image(systemName: "function")
@@ -150,32 +182,31 @@ struct OilView: View {
                         }
                         .foregroundColor(.blue)
                     }
-                    .disabled(!allValid)
+                    .opacity(allValid ? 1.0 : 0.5)
                     Spacer()
                 }
             }
-            .toolbar {
-                ToolbarItemGroup(placement: .keyboard) {
-                    Spacer()
-                    Button {
-                        focusedField = nil
-                    } label: {
-                        Image(systemName: "checkmark")
-                            .foregroundColor(.blue)
-                            .padding(.trailing, 12)
-                    }
-                }
+            .onChange(of: focusedField) { newFocus in
+                if let last = lastFocused { editedFields.insert(last) }
+                lastFocused = newFocus
             }
-            .alert("Дані введено некоректно", isPresented: $showInvalidAlert) {
+            .alert("Данні введено некоректно", isPresented: $showInvalidAlert) {
                 Button("OK", role: .cancel) { }
             } message: {
-                Text("Перевір, щоб обов’язкові поля були числами (можна крапку або кому) і не порожні.")
+                Text(alertMessage)
             }
-            .sheet(isPresented: $showSheet) {
+            .sheet(isPresented: $showSheet) {   
                 if let r = oilResults {
                     ResultSheet(content: .oil(r))
+                        .presentationDetents([.large])
+                        .presentationContentInteraction(.scrolls)   // ← додай це
+                        .presentationDragIndicator(.visible)
+                        .presentationBackground(.ultraThinMaterial)
                 } else {
                     Text("Немає даних").padding()
+                        .presentationDetents([.large])
+                        .presentationContentInteraction(.scrolls)   // ← і тут
+                        .presentationBackground(.ultraThinMaterial)
                 }
             }
         }
