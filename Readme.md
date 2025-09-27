@@ -1,6 +1,6 @@
-<div align="center">
-  <img src="ReadmeImages/Icon.png" alt="AppIcon" style="width: min(50vw, 300px); height: auto;"/>
-</div>
+<p align="center">
+  <img src="ReadmeImages/Icon.png" alt="AppIcon" width="300"/>
+</p>
 
 # FuelCalc
 
@@ -8,11 +8,13 @@
 
 Додаток розроблений у рамках практичної роботи з дисципліни, має три вкладки:
 
-<div style="display: flex; flex-direction: row; justify-content: center; gap: 12px; flex-wrap: nowrap; overflow-x: auto;">
-  <img src="ReadmeImages/AppExample_1.png" alt="AppIcon" style="width: min(30vw, 250px); height: auto;"/>
-  <img src="ReadmeImages/AppExample_2.png" alt="AppIcon" style="width: min(30vw, 250px); height: auto;"/>
-  <img src="ReadmeImages/AppExample_3.png" alt="AppIcon" style="width: min(30vw, 250px); height: auto;"/>
-</div>
+<table>
+  <tr>
+    <td align="center"><img src="ReadmeImages/AppExample_1.png" alt="AppExample_1" width="220"/></td>
+    <td align="center"><img src="ReadmeImages/AppExample_2.png" alt="AppExample_2" width="220"/></td>
+    <td align="center"><img src="ReadmeImages/AppExample_3.png" alt="AppExample_3" width="220"/></td>
+  </tr>
+</table>
 
 ## 🔬 Теоретичні основи
 
@@ -62,11 +64,12 @@ Q = 339·C + 1030·H − 108.8·(O − S) − 25·W [кДж/кг]
 
 ### Контрольний приклад
 
-<div style="display: flex; justify-content: center; gap: 16px; flex-wrap: nowrap; overflow-x: auto;">
-  
-  <img src="ReadmeImages/RawMass_Input.png" alt="AppIcon" style="width: min(40vw, 300px); height: auto;"/>
-  <img src="ReadmeImages/RawMass_Results.png" alt="AppIcon" style="width: min(40vw, 300px); height: auto;"/>
-</div>
+<table>
+  <tr>
+    <td align="center"><img src="ReadmeImages/RawMass_Input.png" alt="RawMass_Input" width="280"/></td>
+    <td align="center"><img src="ReadmeImages/RawMass_Results.png" alt="RawMass_Results" width="280"/></td>
+  </tr>
+</table>
 
 ## 🛢 Мазут
 
@@ -80,10 +83,12 @@ Q = 339·C + 1030·H − 108.8·(O − S) − 25·W [кДж/кг]
 
 ### Контрольний приклад
 
-<div style="display: flex; justify-content: center; gap: 16px; flex-wrap: nowrap; overflow-x: auto;">
-  <img src="ReadmeImages/Oil_Input.png" alt="AppIcon" style="width: min(40vw, 300px); height: auto;"/>
-  <img src="ReadmeImages/Oil_Results.png" alt="AppIcon" style="width: min(40vw, 300px); height: auto;"/>
-</div>
+<table>
+  <tr>
+    <td align="center"><img src="ReadmeImages/Oil_Input.png" alt="Oil_Input" width="280"/></td>
+    <td align="center"><img src="ReadmeImages/Oil_Results.png" alt="Oil_Results" width="280"/></td>
+  </tr>
+</table>
 
 ## 📖 Довідка
 
@@ -96,10 +101,12 @@ Q = 339·C + 1030·H − 108.8·(O − S) − 25·W [кДж/кг]
 
 ### Результати отримані у відповідності до варіанту 8
 
-<div style="display: flex; justify-content: center; gap: 16px; flex-wrap: nowrap; overflow-x: auto;">
-  <img src="ReadmeImages/RawMass_Input_Test.png" alt="AppIcon" style="width: min(40vw, 300px); height: auto;"/>
-  <img src="ReadmeImages/RawMass_Results_Test.png" alt="AppIcon" style="width: min(40vw, 300px); height: auto;"/>
-</div>
+<table>
+  <tr>
+    <td align="center"><img src="ReadmeImages/RawMass_Input_Test.png" alt="RawMass_Input_Test" width="280"/></td>
+    <td align="center"><img src="ReadmeImages/RawMass_Results_Test.png" alt="RawMass_Results_Test" width="280"/></td>
+  </tr>
+</table>
 
 ## 🛠 Використані технології
 
